@@ -23,13 +23,23 @@ class MainSpider(scrapy.Spider):
             )
     def parse_car_details(self, response):
         yield {
-            'title'     : response.css('h1.product-title::text').get(),
-            'city'      : response.css('label.product-properties__i-name:contains("Şəhər") + span.product-properties__i-value::text').get(),
-            'brand'     : response.css('label.product-properties__i-name:contains("Marka") + span.product-properties__i-value a::text').get(),
-            'fields'    : response.css('label.product-properties__i-name::text').getall(),
-            'values'    : response.css('span.product-properties__i-value::text').getall(),
-            'price'     : response.css('div.product-price__i--bold::text').get(),
-            'update'    : response.css('span.product-statistics__i-text::text').get(),
-            'views'     : response.css('ul.product-statistics li:nth-child(2) span::text').get(),
+            # Şəhər,Marka,Model,Buraxılış ili,Ban növü,Rəng,Mühərrik,Yürüş,Sürətlər qutusu,Ötürücü,Yeni
+            'link'          : response.url,
+            'title'         : response.css('h1.product-title::text').get(),
+            'update'        : response.css('span.product-statistics__i-text::text').get(),
+            'views'         : response.css('ul.product-statistics li:nth-child(2) span::text').get(),
+            'city'          : response.css('label.product-properties__i-name:contains("Şəhər") + span.product-properties__i-value::text').get(),
+            'make'          : response.css('label.product-properties__i-name:contains("Marka") + span.product-properties__i-value a::text').get(),
+            'model'         : response.css('label.product-properties__i-name:contains("Model") + span.product-properties__i-value a::text').get(),
+            'year'          : response.css('label.product-properties__i-name:contains("Buraxılış ili") + span.product-properties__i-value a::text').get(),
+            'ban_type'      : response.css('label.product-properties__i-name:contains("Ban növü") + span.product-properties__i-value::text').get(),
+            'colour'        : response.css('label.product-properties__i-name:contains("Rəng") + span.product-properties__i-value::text').get(),
+            'engine'        : response.css('label.product-properties__i-name:contains("Mühərrik") + span.product-properties__i-value::text').get(),
+            'ride'          : response.css('label.product-properties__i-name:contains("Yürüş") + span.product-properties__i-value::text').get(),
+            'transmission'  : response.css('label.product-properties__i-name:contains("Sürətlər qutusu") + span.product-properties__i-value::text').get(),
+            'gear'          : response.css('label.product-properties__i-name:contains("Ötürücü") + span.product-properties__i-value::text').get(),
+            'is_new'        : response.css('label.product-properties__i-name:contains("Sürətlər qutusu") + span.product-properties__i-value::text').get(),
+            'price'         : response.css('div.product-price__i--bold::text').get(),
+            # ban_type': None, 'colour': None, 'engine': None, 'ride': None, 'transmission': None,
         }
 
