@@ -23,7 +23,6 @@ class MainSpider(scrapy.Spider):
             )
     def parse_car_details(self, response):
         yield {
-            # Şəhər,Marka,Model,Buraxılış ili,Ban növü,Rəng,Mühərrik,Yürüş,Sürətlər qutusu,Ötürücü,Yeni
             'link'          : response.url,
             'title'         : response.css('h1.product-title::text').get(),
             'update'        : response.css('span.product-statistics__i-text::text').get(),
@@ -40,6 +39,5 @@ class MainSpider(scrapy.Spider):
             'gear'          : response.css('label.product-properties__i-name:contains("Ötürücü") + span.product-properties__i-value::text').get(),
             'is_new'        : response.css('label.product-properties__i-name:contains("Sürətlər qutusu") + span.product-properties__i-value::text').get(),
             'price'         : response.css('div.product-price__i--bold::text').get(),
-            # ban_type': None, 'colour': None, 'engine': None, 'ride': None, 'transmission': None,
         }
 
