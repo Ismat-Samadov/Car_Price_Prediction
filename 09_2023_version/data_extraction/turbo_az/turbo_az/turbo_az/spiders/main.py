@@ -14,7 +14,6 @@ class MainSpider(scrapy.Spider):
                 meta={"href": href}
             )
 
-        # Check for the "Next" button using the "rel" attribute
         next_button = response.css('a[rel="next"]::attr(href)').get()
         if next_button:
             yield scrapy.Request(
