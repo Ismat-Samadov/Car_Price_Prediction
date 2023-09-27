@@ -37,7 +37,7 @@ class MainSpider(scrapy.Spider):
             'ride'          : response.css('label.product-properties__i-name:contains("Yürüş") + span.product-properties__i-value::text').get(),
             'transmission'  : response.css('label.product-properties__i-name:contains("Sürətlər qutusu") + span.product-properties__i-value::text').get(),
             'gear'          : response.css('label.product-properties__i-name:contains("Ötürücü") + span.product-properties__i-value::text').get(),
-            'is_new'        : response.css('label.product-properties__i-name:contains("Sürətlər qutusu") + span.product-properties__i-value::text').get(),
+            'is_new'        : response.css('label.product-properties__i-name:contains("Yeni") + span.product-properties__i-value::text').get(),
             'price'         : response.css('div.product-price__i--bold::text').get(),
         }
 
