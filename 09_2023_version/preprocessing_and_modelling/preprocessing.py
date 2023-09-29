@@ -46,6 +46,8 @@ def separate_price_and_currency(data):
 
     data[['car_price', 'currency']] = data['price'].apply(helper).apply(pd.Series)
     data['car_price'] = pd.to_numeric(data['car_price'].str.replace('[^\d.]', '', regex=True), errors='coerce')
+    data['car_price'] = data.apply(lambda row: row['car_price'] * 1.7 if row['currency'] == 'USD' else (
+        row['car_price'] * 1.8 if row['currency'] == 'EUR' else row['car_price']), axis=1)
     return data
 
 
