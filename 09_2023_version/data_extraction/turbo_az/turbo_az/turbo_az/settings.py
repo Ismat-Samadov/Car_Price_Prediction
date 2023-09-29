@@ -64,9 +64,18 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
+# ITEM_PIPELINES = {
 #    "turbo_az.pipelines.TurboAzPipeline": 300,
-#}
+# }
+
+# ITEM_PIPELINES = {
+#     'turbo_az.pipelines.OraclePipeline': 300,
+# }
+#
+# ORACLE_USER = 'hr'
+# ORACLE_PASSWORD = 'SYS'
+# ORACLE_DSN = 'your_oracle_dsn'
+
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
