@@ -188,11 +188,11 @@ data['city'] = data['city'].apply(translate_to_english)
 original_features = ['city', 'make', 'model', 'year', 'ban_type', 'colour', 'engine_power', 'ride_km', 'transmission','gear', 'is_new']
 target = 'car_price'
 data_copy = pd.get_dummies(data[original_features + [target]])
+data_copy.to_excel('datacleaned.xlsx')
 X = data_copy.drop(columns=['car_price'])
 y = data_copy['car_price']
-
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=47)
-model = XGBRegressor(learning_rate = 0.4 ,max_depth=4 ,n_estimators = 1600  )
+model = XGBRegressor(learning_rate = 0.4 ,max_depth=4 ,n_estimators = 1200)
 model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 r2 = r2_score(y_test, y_pred)
