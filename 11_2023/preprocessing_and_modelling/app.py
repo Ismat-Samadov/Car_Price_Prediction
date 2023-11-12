@@ -14,11 +14,11 @@ header {visibility: hidden;}
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
 try:
-    xgboost_model = joblib.load('xgboost_model.pkl')
+    xgboost_model = joblib.load('11_2023/preprocessing_and_modelling/xgboost_model.pkl')
 except Exception as e:
     st.error(f"Error loading the model: {str(e)}")
 
-preprocessed_data = pd.read_excel('preprocess_data.xlsx')
+preprocessed_data = pd.read_excel('11_2023/preprocessing_and_modelling/preprocess_data.xlsx')
 city = sorted(preprocessed_data['city'].unique())
 make = sorted(preprocessed_data['make'].unique())
 model = sorted(preprocessed_data['model'].unique())
