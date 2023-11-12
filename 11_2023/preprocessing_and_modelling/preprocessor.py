@@ -184,21 +184,22 @@ def separate_price_and_currency(data):
         row['car_price'] * 1.8 if row['currency'] == 'EUR' else row['car_price']), axis=1)
     return data
 
-def preprocess_data(data):
+def preprocess_data(file_paths):
+    data = pd.concat([pd.read_csv(file_path) for file_path in file_paths]).drop_duplicates()
     data = map_city(data, 'city')
     data = map_ban_type(data, 'ban_type')
     data = map_colour(data, 'colour')
+    data = extract_engine_power(data, 'engine', 'engine_power')
+    data = extract_ride_km(data, 'ride', 'ride_km')
     data = map_transmission(data, 'transmission')
     data = map_gear(data, 'gear')
     data = map_is_new(data, 'is_new')
-    data = extract_engine_power(data, 'engine', 'engine_power')
-    data = extract_ride_km(data, 'ride', 'ride_km')
     data = separate_price_and_currency(data)
+    data = data.drop_duplicates().dropna()
     return data
 
-
 def split_data(data, original_features, target, test_size=0.2, random_state=47):
-    data = data.dropna()
+    data = data.drop_duplicates().dropna()
     categorical_columns = data[original_features].select_dtypes(include=['object']).columns
     data.loc[:, categorical_columns] = data[categorical_columns].astype('category')
     data_copy = pd.get_dummies(data[original_features + [target]], drop_first=True, sparse=True)
@@ -225,13 +226,6 @@ def evaluate_model(model, X_test, y_test):
     print("-----------------------")
     return y_pred
 
-
-def read_and_preprocess_data(file_paths):
-    data = pd.concat([pd.read_csv(file_path) for file_path in file_paths]).drop_duplicates().dropna()
-    data = preprocess_data(data)
-    return data
-
-
 def train_and_save_model(data, original_features, target, model_file_path='xgboost_model.pkl'):
     X_train, X_test, y_train, y_test = split_data(data, original_features, target)
     model = train_xgboost_model(X_train, y_train)
@@ -240,6 +234,5 @@ def train_and_save_model(data, original_features, target, model_file_path='xgboo
 
     return model, y_pred
 
-
-original_features = ['city', 'make', 'model', 'year', 'ban_type', 'colour', 'engine_power', 'ride_km', 'transmission',
-                     'gear', 'is_new']
+original_features = ['city', 'make', 'model', 'year', 'ban_type', 'colour', 'engine_power', 'ride_km', 'transmission','gear', 'is_new']
+target = 'car_price'

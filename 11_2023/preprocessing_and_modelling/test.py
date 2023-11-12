@@ -34,14 +34,11 @@ input_data['gear'] = st.selectbox('gear', gear)
 input_data['is_new'] = st.selectbox('is_new', is_new)
 input_df = pd.DataFrame(input_data, index=[0])
 
-dummy_cols = pd.get_dummies(preprocessed_data,drop_first=True)
+# Transform user input into dummy variables
+dummy_cols = pd.get_dummies(preprocessed_data, drop_first=True)
+input_df = pd.get_dummies(input_df, drop_first=True).reindex(columns=dummy_cols.columns, fill_value=0)
 
-input_df = pd.get_dummies(input_df,drop_first=True).reindex(columns=dummy_cols.columns, fill_value=0)
-
-
-
-
-
+# Model prediction section
 if 'model' in locals():
     # Add a button to trigger model prediction
     if st.button('Predict Car Price'):
