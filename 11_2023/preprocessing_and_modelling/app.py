@@ -1,71 +1,42 @@
-import streamlit as st
+from preprocessor import preprocess_data,original_features
 import joblib
 import pandas as pd
-from sklearn.preprocessing import OneHotEncoder
 
-# Load the pre-trained XGBoost model
-model = joblib.load('xgboost_model.pkl')
+def preprocess_input_data(input_data):
+    # Apply the same preprocessing steps used during training
+    input_data = preprocess_data(input_data)
+    # Extract the features used during training
+    input_features = input_data[original_features]
+    return input_features
 
-categorical_columns = ['city', 'make', 'model', 'ban_type', 'colour', 'transmission', 'gear', 'is_new']
-numeric_columns = ['year', 'engine_power', 'ride_km']
-encoder = OneHotEncoder()
+if __name__ == "__main__":
+    # Load the trained model from the pickle file
+    model_path = 'xgboost_model.pkl'
+    loaded_model = joblib.load(model_path)
 
-# Load your training data (assuming you have it saved or accessible)
-training_data = pd.read_excel('datacleaned.xlsx')  # Replace with your actual file path
+    # Example new data point for prediction (replace this with your actual data)
+    new_data = {
+        'city': 'Baku',
+        'make': 'Toyota',
+        'model': 'Camry',
+        'year': 2019,
+        'ban_type': 'Sedan',
+        'colour': 'Silver',
+        'engine': 150.0,
+        'ride_km': 50000.0,
+        'transmission': 'Automatic',
+        'gear': 'Front',
+        'is_new': 'No'
+    }
 
-# Fit the OneHotEncoder on the training data
-encoder.fit(training_data[categorical_columns])
+    # Convert the new data point to a DataFrame
+    input_data = pd.DataFrame([new_data])
 
-def preprocess_input(data):
-    categorical_data = data[categorical_columns]
-    categorical_encoded = encoder.transform(categorical_data).toarray()
-    numeric_data = data[numeric_columns]
-    processed_data = pd.concat([pd.DataFrame(categorical_encoded, columns=encoder.get_feature_names_out(categorical_columns)),
-                               numeric_data], axis=1)
+    # Preprocess the input data
+    input_features = preprocess_input_data(input_data)
 
-    return processed_data
+    # Make predictions using the loaded model
+    predicted_price = loaded_model.predict(input_features)
 
-def predict_price(features):
-    processed_features = preprocess_input(features)
-    prediction = model.predict(processed_features)
-    return prediction
+    print(f"Predicted Car Price: {predicted_price[0]:.2f} AZN")
 
-def main():
-    st.title("Car Price Prediction App")
-    st.sidebar.header("Input Features")
-    city = st.sidebar.text_input("City", "")
-    make = st.sidebar.text_input("Make", "")
-    model_input = st.sidebar.text_input("Model", "")
-    year = st.sidebar.number_input("Year", 1940, 2023, step=1)
-    ban_type = st.sidebar.selectbox("Body Type",
-                                    ["SUV", "Sedan", "Hatchback", "Station Wagon", "Liftback", "Truck", "Van",
-                                     "Minivan", "Coupe", "Motorcycle", "Pickup", "Convertible", "Microbus", "Moped",
-                                     "Bus", "Roadster", "Quad Bike"])
-    colour = st.sidebar.selectbox("Color",
-                                  ["Silver", "Black", "Blue", "Gray", "Brown", "Dark_Red", "Red", "Green", "Blue",
-                                   "Beige", "Gold", "Brown", "Orange", "Yellow", "Purple", "Pink"])
-    engine_power = st.sidebar.number_input("Engine Power", min_value=0.0)
-    ride_km = st.sidebar.number_input("Ride (km)", min_value=0.0)
-    transmission = st.sidebar.selectbox("Transmission", ["Automatic", "Manual", "CVT", "Automated_Manual"])
-    gear = st.sidebar.selectbox("Gear", ["Full", "Front", "Rear"])
-    is_new = st.sidebar.selectbox("Is New", ["Yes", "No"])
-
-    user_inputs = {'city': city, 'make': make, 'model': model_input, 'year': year, 'ban_type': ban_type,
-                   'colour': colour,
-                   'engine_power': engine_power, 'ride_km': ride_km, 'transmission': transmission, 'gear': gear,
-                   'is_new': is_new}
-    input_df = pd.DataFrame([user_inputs])
-    processed_input = preprocess_input(input_df)
-    st.write("Processed Input Data:")
-    st.write(processed_input)
-
-    if st.button("Predict Car Price"):
-        prediction = predict_price(processed_input)
-        st.success(f"Predicted Car Price: {prediction[0]:,.2f} AZN")
-
-        # Display additional information or visualization about the prediction
-        # Example: st.line_chart(prediction_history) or st.plotly_chart(prediction_chart)
-
-
-if __name__ == '__main__':
-    main()
