@@ -78,5 +78,3 @@ After training the model, the script will display the following model evaluation
 ## License
 
 ```
-
-Make sure to replace "yourusername" with your actual GitHub username in the clone command, and update the license section with the appropriate license information.
