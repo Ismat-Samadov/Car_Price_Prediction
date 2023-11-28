@@ -75,6 +75,4 @@ After training the model, the script will display the following model evaluation
 - Ismat Samadov
 - Email: ismetsemedov@gmail.com
 
-## License
-
 ```
