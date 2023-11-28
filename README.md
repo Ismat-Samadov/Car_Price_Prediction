@@ -6,14 +6,12 @@ This project is designed to predict car prices using an XGBoost model. It includ
 
 ## Table of Contents
 
-- [Prerequisites](#prerequisites)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Model Evaluation](#model-evaluation)
-- [Making Predictions](#making-predictions)
-- [Author](#author)
-- [License](#license)
-
+- [Prerequisites]
+- [Getting Started]
+- [Usage]
+- [Model Evaluation]
+- [Making Predictions]
+- [Author]
 ## Prerequisites
 
 Before running the car price prediction script, you need to have the following prerequisites in place:
