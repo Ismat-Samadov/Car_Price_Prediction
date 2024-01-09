@@ -1,5 +1,3 @@
-
-```markdown
 # Car Price Prediction
 
 This project is designed to predict car prices using an XGBoost model. It includes data preprocessing, model training, and prediction steps. The model is trained on a dataset containing various features of cars, and it can be used to estimate the price of a car based on user-provided input data.
@@ -72,5 +70,3 @@ After training the model, the script will display the following model evaluation
 
 - Ismat Samadov
 - Email: ismetsemedov@gmail.com
-
-```
