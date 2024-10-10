@@ -1,0 +1,97 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Car Price Prediction</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Car Price Prediction</h1>
+      <form id="prediction-form">
+        <div class="form-group">
+          <label for="city">City:</label>
+          <select id="city" name="city">
+            <option value="Baku" selected>Baku</option>
+            <option value="Ganja">Ganja</option>
+            <option value="Sumgait">Sumgait</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="make">Make:</label>
+          <input type="text" id="make" name="make" value="Toyota">
+        </div>
+
+        <div class="form-group">
+          <label for="model">Model:</label>
+          <input type="text" id="model" name="model" value="Camry">
+        </div>
+
+        <div class="form-group">
+          <label for="year">Year:</label>
+          <input type="number" id="year" name="year" value="2020" min="1990" max="2024">
+        </div>
+
+        <div class="form-group">
+          <label for="ban_type">Body Type:</label>
+          <select id="ban_type" name="ban_type">
+            <option value="Sedan" selected>Sedan</option>
+            <option value="SUV">SUV</option>
+            <option value="Hatchback">Hatchback</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="colour">Colour:</label>
+          <select id="colour" name="colour">
+            <option value="Black" selected>Black</option>
+            <option value="Silver">Silver</option>
+            <option value="Red">Red</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="engine_power">Engine Power (in L):</label>
+          <input type="number" id="engine_power" name="engine_power" value="2.0" step="0.1">
+        </div>
+
+        <div class="form-group">
+          <label for="ride_km">Ride KM:</label>
+          <input type="number" id="ride_km" name="ride_km" value="50000">
+        </div>
+
+        <div class="form-group">
+          <label for="transmission">Transmission:</label>
+          <select id="transmission" name="transmission">
+            <option value="Automatic" selected>Automatic</option>
+            <option value="Manual">Manual</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="gear">Gear:</label>
+          <select id="gear" name="gear">
+            <option value="Front" selected>Front</option>
+            <option value="Rear">Rear</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="is_new">Is New:</label>
+          <select id="is_new" name="is_new">
+            <option value="Yes">Yes</option>
+            <option value="No" selected>No</option>
+          </select>
+        </div>
+
+        <button type="submit">Predict Price</button>
+      </form>
+
+      <div id="prediction-result" class="result"></div>
+    </div>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
