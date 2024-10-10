@@ -2,11 +2,12 @@ from flask import Flask, request, jsonify, render_template
 import joblib
 import pandas as pd
 import logging
+import os
 logging.basicConfig(level=logging.DEBUG)
 
 # Load the trained model and the columns used during training
 model = joblib.load('optimized_random_forest_model.pkl')
-training_columns = joblib.load('training_columns.pkl')  # Assume you saved the training columns during training
+training_columns = joblib.load('training_columns.pkl')
 
 # Initialize the Flask app
 app = Flask(__name__)
