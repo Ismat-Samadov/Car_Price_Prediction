@@ -65,8 +65,3 @@ After training the model, the script will display the following model evaluation
 - **R-squared (R²):** A measure of the model's goodness-of-fit.
 - **Root Mean Squared Error (RMSE):** A measure of the prediction error.
 - **Mean Absolute Error (MAE):** A measure of the absolute prediction error.
-
-## Author
-
-- Ismat Samadov
-- Email: ismetsemedov@gmail.com
